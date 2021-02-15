@@ -4,5 +4,5 @@ plugins {
 }
 
 templateExampleConfig {
-    message.set("Just trying this gradle plugin...")
+    configurationName.set("runtimeClasspath")
 }

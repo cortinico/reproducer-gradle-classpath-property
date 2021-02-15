@@ -1,6 +1,11 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("com.ncorti.kotlin.gradle.template.plugin")
+}
+
+templateExampleConfig {
+    configurationName.set("releaseCompileClasspath")
 }
 
 android {

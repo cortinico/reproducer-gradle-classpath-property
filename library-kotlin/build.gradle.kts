@@ -4,6 +4,11 @@ plugins {
     id("java-library")
     kotlin("jvm")
     id("maven-publish")
+    id("com.ncorti.kotlin.gradle.template.plugin")
+}
+
+templateExampleConfig {
+    configurationName.set("runtimeClasspath")
 }
 
 dependencies {

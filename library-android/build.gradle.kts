@@ -4,6 +4,11 @@ plugins {
     id("com.android.library")
     kotlin("android")
     id("maven-publish")
+    id("com.ncorti.kotlin.gradle.template.plugin")
+}
+
+templateExampleConfig {
+    configurationName.set("releaseRuntimeClasspath")
 }
 
 android {

@@ -12,9 +12,7 @@ abstract class TemplateExtension @Inject constructor(project: Project) {
 
     private val objects = project.objects
 
-    val message: Property<String> = objects.property(String::class.java)
-
-    val tag: Property<String> = objects.property(String::class.java)
+    val configurationName: Property<String> = objects.property(String::class.java)
 
     val outputFile: RegularFileProperty = objects.fileProperty().convention(
         project.layout.buildDirectory.file(DEFAULT_OUTPUT_FILE)
