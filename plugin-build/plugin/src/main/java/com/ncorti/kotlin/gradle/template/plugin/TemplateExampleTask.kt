@@ -1,6 +1,7 @@
 package com.ncorti.kotlin.gradle.template.plugin
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.attributes.Attribute
 import org.gradle.api.file.FileCollection
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
@@ -24,11 +25,15 @@ abstract class TemplateExampleTask : DefaultTask() {
 
     @get:Classpath
     @get:InputFiles
-    val configuration: FileCollection
-        get() = project.configurations.getByName(configurationName.get())
-            .incoming
+    val configuration: FileCollection by lazy {
+        val confs = project.configurations.getByName(configurationName.get())
+        confs.attributes {
+            it.attribute(Attribute.of("artifactType", String::class.java), "android-classes-directory")
+        }
+        confs.incoming
             .artifactView { it.isLenient = false }
             .files
+    }
 
     @get:OutputFile
     abstract val outputFile: RegularFileProperty
