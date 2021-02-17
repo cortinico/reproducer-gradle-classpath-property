@@ -1,7 +1,7 @@
 package com.ncorti.kotlin.gradle.template.plugin
 
 import org.gradle.api.DefaultTask
-import org.gradle.api.artifacts.Configuration
+import org.gradle.api.file.FileCollection
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Classpath
@@ -24,8 +24,11 @@ abstract class TemplateExampleTask : DefaultTask() {
 
     @get:Classpath
     @get:InputFiles
-    val configuration: Configuration
+    val configuration: FileCollection
         get() = project.configurations.getByName(configurationName.get())
+            .incoming
+            .artifactView { it.isLenient = false }
+            .files
 
     @get:OutputFile
     abstract val outputFile: RegularFileProperty

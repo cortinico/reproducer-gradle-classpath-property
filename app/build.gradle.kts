@@ -5,7 +5,7 @@ plugins {
 }
 
 templateExampleConfig {
-    configurationName.set("releaseCompileClasspath")
+    configurationName.set("releaseRuntimeClasspath")
 }
 
 android {
