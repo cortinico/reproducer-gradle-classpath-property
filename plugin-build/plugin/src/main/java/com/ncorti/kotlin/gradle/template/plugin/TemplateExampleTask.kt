@@ -25,15 +25,16 @@ abstract class TemplateExampleTask : DefaultTask() {
 
     @get:Classpath
     @get:InputFiles
-    val configuration: FileCollection by lazy {
-        val confs = project.configurations.getByName(configurationName.get())
-        confs.attributes {
-            it.attribute(Attribute.of("artifactType", String::class.java), "android-classes-directory")
-        }
-        confs.incoming
-            .artifactView { it.isLenient = false }
+    val configuration: FileCollection
+        get() = project.configurations.getByName(configurationName.get())
+            .incoming
+            .artifactView {
+                it.isLenient = false
+                it.attributes { container ->
+                    container.attribute(Attribute.of("artifactType", String::class.java), "android-classes-directory")
+                }
+            }
             .files
-    }
 
     @get:OutputFile
     abstract val outputFile: RegularFileProperty
@@ -42,6 +43,10 @@ abstract class TemplateExampleTask : DefaultTask() {
     fun sampleAction() {
         logger.lifecycle("configurationName is: ${configurationName.orNull}")
         logger.lifecycle("configuration is: $configuration")
+
+        configuration.forEach {
+            logger.lifecycle("file: $it")
+        }
 
         outputFile.get().asFile.writeText("$configurationName")
     }
