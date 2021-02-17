@@ -31,7 +31,7 @@ abstract class TemplateExampleTask : DefaultTask() {
             .artifactView {
                 it.isLenient = false
                 it.attributes { container ->
-                    container.attribute(Attribute.of("artifactType", String::class.java), "android-classes-directory")
+                    container.attribute(Attribute.of("artifactType", String::class.java), "apk")
                 }
             }
             .files
